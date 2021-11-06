@@ -1,10 +1,14 @@
 [Unit]
-Description=A server for streaming Motion-JPEG from a video capture device
-After=network.target
+Description=MJPG Streamer service for /dev/%i
+BindsTo=dev-%i.device
+After=dev-%i.device network-online.target 
 
 [Service]
-User=mjpg_streamer
+Type=simple
 ExecStart=/usr/bin/mjpg_streamer -i 'input_uvc.so -d /dev/%I' -o 'output_http.so -w /usr/share/mjpg_streamer/www'
+User=mjpg_streamer
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
