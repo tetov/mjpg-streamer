@@ -8,5 +8,4 @@ install -D mjpg_streamer@.service _pkg/lib/systemd/system/mjpg_streamer@.service
 mkdir -p _pkg/usr/share/mjpg_streamer
 cp -r www _pkg/usr/share/mjpg_streamer/www
 
-version="$(grep '#define SOURCE_VERSION' mjpg_streamer.h | awk '{gsub(/"/, ""); print $3}')"
-fpm --output-type deb --input-type dir --chdir _pkg --after-install postinstall.sh --name mjpg-streamer --version $version
+fpm --output-type deb --input-type dir --chdir _pkg --after-install postinstall.sh --name mjpg-streamer --version $VERSION --iteration $REVISION --deb-compression xz --url https://github.com/tetov/mjpg_streamer --description "mjpg-streamer is a command line application that copies JPEG frames from one or more input plugins to multiple output plugins." --maintainer "Anton Tetov <anton@tetov.se>" --license GPLv2
